@@ -1,0 +1,38 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  /* responsive širina + automatska visina preko img */
+  width: clamp(240px, 40vw, 480px);
+  animation: fadeUp 600ms ease-out both;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  /* suptilan “pop” na različitim pozadinama */
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.25));
+}
+
+/* Respect "reduced motion" */
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    animation: none;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
