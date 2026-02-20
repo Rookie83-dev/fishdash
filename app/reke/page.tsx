@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import BackButton from "@/app/components/BackButton";
 import { rivers } from "./data";
 
 export default function RekePage() {
   return (
     <main className="min-h-screen p-4">
+
+      <BackButton fallback="/" />
 
       <h1 className="text-2xl font-bold mb-4">Reke</h1>
 
@@ -27,9 +30,7 @@ export default function RekePage() {
                   <div
                     key={i}
                     className="w-2 bg-blue-500/80 dark:bg-blue-400/80 rounded"
-                    style={{
-                      height: `${Math.min(70, Math.max(6, v / 2))}px`,
-                    }}
+                    style={{ height: `${Math.min(70, Math.max(6, v / 2))}px` }}
                   />
                 ))}
               </div>
