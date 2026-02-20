@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useParams } from "next/navigation";
 import BackButton from "@/app/components/BackButton";
+import RiverMap from "@/app/components/RiverMap";
 import { rivers } from "../data";
 import {
   LineChart,
@@ -34,8 +35,7 @@ export default function RiverDetails() {
   if (!river) {
     return (
       <main className="min-h-screen p-4">
-        {/* Uvek idi na listu reka */}
-        <BackButton href="/reke" />
+        /reke
         <h1 className="text-2xl font-bold mt-4">Reka nije pronađena.</h1>
       </main>
     );
@@ -49,11 +49,11 @@ export default function RiverDetails() {
 
   return (
     <main className="min-h-screen p-4 space-y-6">
-      {/* Uvek idi na listu reka */}
-      <BackButton href="/reke" />
+      /reke
 
       <h1 className="text-3xl font-bold">{river.name}</h1>
 
+      {/* Info blok */}
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
         <p className="text-lg"><b>Vodostaj:</b> {river.level} cm</p>
         <p className="text-lg">
@@ -65,6 +65,7 @@ export default function RiverDetails() {
         <p className="text-sm opacity-70">Ažurirano: {river.lastUpdate}</p>
       </div>
 
+      {/* Graf vodostaja */}
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
         <h2 className="text-xl font-semibold mb-3">Istorija vodostaja</h2>
         <div style={{ width: "100%", height: 280 }}>
@@ -93,11 +94,34 @@ export default function RiverDetails() {
         </div>
       </div>
 
+      {/* Mapa reke */}
+      <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
+        <h2 className="text-xl font-semibold mb-3">Mapa reke</h2>
+        <RiverMap
+          lat={river.lat}
+          lon={river.lon}
+          name={river.name}
+          showUserLocation={true}
+          height={300}
+        />
+        <div className="mt-2 text-sm opacity-75">
+          <a
+            className="text-blue-500 hover:underline"
+            href={`https://www.google.com/maps?q=${river.lat},${river.lon}`}
+            target="_blank" rel="noreferrer"
+          >
+            Otvori u Google Maps
+          </a>
+        </div>
+      </div>
+
+      {/* Opis */}
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
         <h2 className="text-xl font-semibold mb-2">Opis</h2>
         <p className="opacity-80 text-sm leading-relaxed">{river.description}</p>
       </div>
 
+      {/* Ribolovne zone */}
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
         <h2 className="text-xl font-semibold mb-2">Ribolovne zone (duž toka)</h2>
         <ul className="list-disc ml-6 space-y-1 text-sm opacity-80">
@@ -105,7 +129,7 @@ export default function RiverDetails() {
         </ul>
       </div>
 
-      {/* … (ostale sekcije koje već imaš) */}
+      {/* … ako imaš „Ribe i tehnike“, „Preporuke po vodostaju“, „Dozvole i zabrane“ – ostaju kako su već bile */}
     </main>
   );
 }
