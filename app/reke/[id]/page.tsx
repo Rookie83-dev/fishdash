@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo } from "react";
 import { useParams } from "next/navigation";
-import BackButton from "@/app/components/BackButton";
 import RiverMap from "@/app/components/RiverMap";
 import { rivers } from "../data";
 import {
@@ -32,10 +32,20 @@ export default function RiverDetails() {
   const id = Number(params.id);
   const river = useMemo(() => rivers.find((r) => r.id === id), [id]);
 
+  const breadcrumb = (
+    <Link
+      href="/reke"
+      className="text-sm opacity-70 hover:opacity-100 underline underline-offset-4 inline-flex items-center gap-2"
+    >
+      <span aria-hidden>←</span>
+      <span>/reke</span>
+    </Link>
+  );
+
   if (!river) {
     return (
       <main className="min-h-screen p-4">
-        /reke
+        {breadcrumb}
         <h1 className="text-2xl font-bold mt-4">Reka nije pronađena.</h1>
       </main>
     );
@@ -49,18 +59,22 @@ export default function RiverDetails() {
 
   return (
     <main className="min-h-screen p-4 space-y-6">
-      /reke
+      {breadcrumb}
 
       <h1 className="text-3xl font-bold">{river.name}</h1>
 
       {/* Info blok */}
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
-        <p className="text-lg"><b>Vodostaj:</b> {river.level} cm</p>
+        <p className="text-lg">
+          <b>Vodostaj:</b> {river.level} cm
+        </p>
         <p className="text-lg">
           <b>Trend:</b>{" "}
           {river.trend === "up" && <span className="text-green-500">↑ Raste</span>}
           {river.trend === "down" && <span className="text-red-500">↓ Opada</span>}
-          {river.trend === "stable" && <span className="text-yellow-400">→ Stabilno</span>}
+          {river.trend === "stable" && (
+            <span className="text-yellow-400">→ Stabilno</span>
+          )}
         </p>
         <p className="text-sm opacity-70">Ažurirano: {river.lastUpdate}</p>
       </div>
@@ -76,7 +90,12 @@ export default function RiverDetails() {
                 dataKey="x"
                 stroke="#aaa"
                 tick={{ fill: "#aaa" }}
-                label={{ value: "poslednjih 5 dana", position: "insideBottom", offset: -2, fill: "#aaa" }}
+                label={{
+                  value: "poslednjih 5 dana",
+                  position: "insideBottom",
+                  offset: -2,
+                  fill: "#aaa",
+                }}
               />
               <YAxis
                 stroke="#aaa"
@@ -88,7 +107,14 @@ export default function RiverDetails() {
                 formatter={(v: any) => [`${v} cm`, "Vodostaj"]}
                 labelFormatter={(label) => `Dan: ${label}`}
               />
-              <Line type="monotone" dataKey="level" stroke="#3b82f6" strokeWidth={3} dot={false} activeDot={{ r: 5 }} />
+              <Line
+                type="monotone"
+                dataKey="level"
+                stroke="#3b82f6"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 5 }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -108,7 +134,8 @@ export default function RiverDetails() {
           <a
             className="text-blue-500 hover:underline"
             href={`https://www.google.com/maps?q=${river.lat},${river.lon}`}
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             Otvori u Google Maps
           </a>
@@ -125,11 +152,11 @@ export default function RiverDetails() {
       <div className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800">
         <h2 className="text-xl font-semibold mb-2">Ribolovne zone (duž toka)</h2>
         <ul className="list-disc ml-6 space-y-1 text-sm opacity-80">
-          {river.zones.map((z, i) => <li key={i}>{z}</li>)}
+          {river.zones.map((z, i) => (
+            <li key={i}>{z}</li>
+          ))}
         </ul>
       </div>
-
-      {/* … ako imaš „Ribe i tehnike“, „Preporuke po vodostaju“, „Dozvole i zabrane“ – ostaju kako su već bile */}
     </main>
   );
 }
