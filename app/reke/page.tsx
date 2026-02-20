@@ -7,8 +7,8 @@ import { rivers } from "./data";
 export default function RekePage() {
   return (
     <main className="min-h-screen p-4">
-
-      <BackButton fallback="/" />
+      {/* Uvek idi na početnu */}
+      <BackButton href="/" />
 
       <h1 className="text-2xl font-bold mb-4">Reke</h1>
 
@@ -16,7 +16,6 @@ export default function RekePage() {
         {rivers.map((r) => (
           <Link key={r.id} href={`/reke/${r.id}`}>
             <div className="p-4 rounded-xl cursor-pointer bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md transition">
-
               <h2 className="text-lg font-semibold mb-1">{r.name}</h2>
 
               <p className="text-sm opacity-80">
@@ -34,12 +33,10 @@ export default function RekePage() {
                   />
                 ))}
               </div>
-
             </div>
           </Link>
         ))}
       </div>
-
     </main>
   );
 }
