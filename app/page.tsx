@@ -18,13 +18,15 @@ export default function Home() {
       .then((d) => d.ok && setMesec(d));
   }, []);
 
+  const cardClass =
+    "p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md cursor-pointer transition-shadow";
+
   return (
     <main className="min-h-screen px-4 py-8 sm:py-10">
       <header className="mb-8 text-center">
-        {/* LOGO umesto teksta */}
         <div className="mx-auto w-[clamp(240px,40vw,480px)] logoFadeUp">
           <Image
-            src="/brand/fishdash-logo-cropped.webp" // ako koristiš png: "/brand/fishdash-logo-cropped.png"
+            src="/brand/fishdash-logo-cropped.webp" // ili .png ako si stavio png
             alt="Fishdash"
             width={1378}
             height={397}
@@ -39,17 +41,12 @@ export default function Home() {
           />
         </div>
 
-        <p className="mt-4 text-sm opacity-70">
-          Tvoj ribolovački mini-dashboard
-        </p>
+        <p className="mt-4 text-sm opacity-70">Tvoj ribolovački mini-dashboard</p>
       </header>
 
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Link href="/reke" className="block">
-          <div
-            className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md cursor-pointer transition-shadow"
-          >
+          <div className={cardClass}>
             <span className="text-4xl mb-3 block">🌊</span>
             <h2 className="text-xl font-semibold">Vodostaj reka</h2>
             <p className="text-sm opacity-70">Drina, Lim, Gradac…</p>
@@ -57,10 +54,7 @@ export default function Home() {
         </Link>
 
         <Link href="/vreme" className="block">
-          <div
-            className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md cursor-pointer transition-shadow"
-          >
+          <div className={cardClass}>
             <span className="text-4xl mb-3 block">☁️</span>
             <h2 className="text-xl font-semibold">Vremenski uslovi</h2>
             {vreme ? (
@@ -74,10 +68,7 @@ export default function Home() {
         </Link>
 
         <Link href="/mesec" className="block">
-          <div
-            className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md cursor-pointer transition-shadow"
-          >
+          <div className={cardClass}>
             <span className="text-4xl mb-3 block">{mesec?.phase?.emoji ?? "🌙"}</span>
             <h2 className="text-xl font-semibold">Mesec</h2>
             {mesec ? (
@@ -91,10 +82,7 @@ export default function Home() {
         </Link>
 
         <Link href="/ai" className="block">
-          <div
-            className="p-5 rounded-xl bg-neutral-100 dark:bg-neutral-900
-            border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md cursor-pointer transition-shadow"
-          >
+          <div className={cardClass}>
             <span className="text-4xl mb-3 block">🎣</span>
             <h2 className="text-xl font-semibold">Najbolji sati</h2>
             <p className="text-sm opacity-70">AI predikcija aktivnosti ribe</p>
@@ -102,7 +90,6 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Fade-in + respekt reduced-motion */}
       <style jsx global>{`
         .logoFadeUp {
           animation: fishdashFadeUp 600ms ease-out both;
